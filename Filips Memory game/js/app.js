@@ -1,5 +1,5 @@
 /*
- * Create a list that holds all of your cards
+ * Created a list that holds all cards/"icons"
  */
 const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o",
     "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt",
@@ -11,66 +11,110 @@ const cardsContainer = document.querySelector(".deck");
 
 let openedCards = [];
 let matchedCards = [];
-// Create the cards
-for (let i = 0; i < icons.length; i++) {
-    const card = document.createElement("li");
-    card.classList.add("card");
-    card.innerHTML = `<i class= "${icons[i]}"> </i>`;
-    cardsContainer.appendChild(card);
 
-    // Click a card event
-    card.addEventListener("click", function() {
+
+/*
+* initialize the game
+*/
+
+function init() {
+  for (let i = 0; i < icons.length; i++) {
+      const card = document.createElement("li");
+      card.classList.add("card");
+      card.innerHTML = `<i class= "${icons[i]}"> </i>`;
+      cardsContainer.appendChild(card);
+
+      // Add click event to each card
+      click(card);
+  }
+}
+
+
+/*
+* Click event
+*/
+function click(card) {
+  card.addEventListener("click", function() {
 
       const currentCard = this;
       const previousCard = openedCards[0];
 
-        // Have existing OPEN card
-        if (openedCards.length === 1) {
+      // Alreay 1 opened card before the click
+      if (openedCards.length === 1) {
 
-            card.classList.add("open", "show");
-            openedCards.push(this);
+          card.classList.add("open", "show", "disable");
+          openedCards.push(this);
 
-            // Compare open cards
-            if (currentCard.innerHTML === previousCard.innerHTML) {
+          // Then Compares the 2 cards
+          compare (currentCard, previousCard);
 
-              // Matched cards
-                currentCard.classList.add("match");
-                previousCard.classList.add("match");
-
-                matchedCards.push(currentCard, previousCard);
-
-                openedCards = []; //Makes the the card array empty again.
-
-                isOver(); // Checks if the game is over, is the array = 16 all cards have been matched.
-
+      /*
+      * Don't have any open card yet
+      */
+    }else {
+          card.classList.add("open", "show", "disable");
+          openedCards.push(this);
+      }
+  });}
 
 
-            } else {
-              setTimeout(function() {
-              currentCard.classList.remove("open", "show");
-              previousCard.classList.remove("open", "show");
-            }, 700);
-            
-              openedCards = []; //Makes the the card array empty again.
+/*
+* Compare the 2 cards
+*/
+function compare (currentCard, previousCard) {
+  if (currentCard.innerHTML === previousCard.innerHTML) {
+      /*
+      * The card Matched
+      */
+      currentCard.classList.add("match");
+      previousCard.classList.add("match");
 
-            }
+      matchedCards.push(currentCard, previousCard);
 
-        }
-        // We don't have any open card
-        else {
-            card.classList.add("open", "show");
-            openedCards.push(this);
-        }
+      openedCards = []; //Makes the the card array empty again.
 
-    });
+      isOver(); // Checks if all cards have been matched.
+
+  } else {
+      /*
+      * The card didn't match
+      */
+      setTimeout(function() { // Delayes the function
+          currentCard.classList.remove("open", "show", "disable");
+          previousCard.classList.remove("open", "show", "disable");
+          openedCards = []; //Makes the the card array empty again.
+      }, 600);
+    }
 }
 
-   function isOver() {
-     if(matchedCards.length === icons.length) {
-       alert("GAME OVER");
-     }
-   }
 
+ /*
+ * Check if game is over
+ */
+function isOver() {
+    if (matchedCards.length === icons.length) {
+        alert("GAME OVER");
+    }
+}
+
+/*
+* Restart Game function
+*/
+ const restartButton = document.querySelector(".restart");
+
+ restartButton.addEventListener("click", function (){
+ // delete all cards
+ cardsContainer.innerHTML = "";
+
+ // call init to create new cards
+ init();
+ // Reset matchedCards
+ matchedCards = [];
+ });
+
+
+/// start the game
+init();
 
 
 
