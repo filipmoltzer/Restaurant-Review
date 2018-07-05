@@ -1,10 +1,11 @@
 /*
  * Create a list that holds all of your cards
  */
- const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o",
-  "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt",
-  "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf",
-  "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"]
+const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o",
+    "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt",
+    "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf",
+    "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"
+]
 
 const cardsContainer = document.querySelector(".deck");
 
@@ -12,36 +13,45 @@ let openedCards = [];
 
 // Create the cards
 for (let i = 0; i < icons.length; i++) {
-  const card = document.createElement("li");
-  card.classList.add("card");
-  card.innerHTML = `<i class= "${icons[i]}"> </i>`;
-  cardsContainer.appendChild(card);
+    const card = document.createElement("li");
+    card.classList.add("card");
+    card.innerHTML = `<i class= "${icons[i]}"> </i>`;
+    cardsContainer.appendChild(card);
 
-// Click a card event
- card.addEventListener("click", function () {
+    // Click a card event
+    card.addEventListener("click", function() {
 
-// Have existing OPEN card
-   if(openedCards.length === 1) {
+      const currentCard = this;
+      const previousCard = openedCards[0];
 
-     card.classList.add("open", "show");
-     openedCards.push(this);
+        // Have existing OPEN card
+        if (openedCards.length === 1) {
 
-     // Compare open cards
-   if(this.innerHTML === openedCards[0].innerHTML) {
-     console.log("It's a MATCH!");
-   }
-   else {
-     console.log("Sorry, No Match...");
-   }
+            card.classList.add("open", "show");
+            openedCards.push(this);
 
-  }
-  // We don't have any open card
-   else {
-     card.classList.add("open", "show");
-     openedCards.push(this);
-   }
+            // Compare open cards
+            if (currentCard.innerHTML === previousCard.innerHTML) {
+                currentCard.classList.add("match");
+                previousCard.classList.add("match");
 
-});
+                openedCards = []; //Makes the the card array empty again.
+
+            } else {
+              currentCard.classList.remove("open", "show");
+              previousCard.classList.remove("open", "show");
+              openedCards = []; //Makes the the card array empty again.
+
+            }
+
+        }
+        // We don't have any open card
+        else {
+            card.classList.add("open", "show");
+            openedCards.push(this);
+        }
+
+    });
 }
 
 /*
@@ -53,7 +63,8 @@ for (let i = 0; i < icons.length; i++) {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
