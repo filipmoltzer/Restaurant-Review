@@ -10,7 +10,7 @@ const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o",
 const cardsContainer = document.querySelector(".deck");
 
 let openedCards = [];
-
+let matchedCards = [];
 // Create the cards
 for (let i = 0; i < icons.length; i++) {
     const card = document.createElement("li");
@@ -32,14 +32,25 @@ for (let i = 0; i < icons.length; i++) {
 
             // Compare open cards
             if (currentCard.innerHTML === previousCard.innerHTML) {
+
+              // Matched cards
                 currentCard.classList.add("match");
                 previousCard.classList.add("match");
 
+                matchedCards.push(currentCard, previousCard);
+
                 openedCards = []; //Makes the the card array empty again.
 
+                isOver(); // Checks if the game is over, is the array = 16 all cards have been matched.
+
+
+
             } else {
+              setTimeout(function() {
               currentCard.classList.remove("open", "show");
               previousCard.classList.remove("open", "show");
+            }, 700);
+            
               openedCards = []; //Makes the the card array empty again.
 
             }
@@ -53,6 +64,27 @@ for (let i = 0; i < icons.length; i++) {
 
     });
 }
+
+   function isOver() {
+     if(matchedCards.length === icons.length) {
+       alert("GAME OVER");
+     }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
  * Display the cards on the page
