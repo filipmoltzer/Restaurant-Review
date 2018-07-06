@@ -63,9 +63,8 @@ function click(card) {
 */
 function compare (currentCard, previousCard) {
   if (currentCard.innerHTML === previousCard.innerHTML) {
-      /*
-      * The card Matched
-      */
+
+      /// The card Matched
       currentCard.classList.add("match");
       previousCard.classList.add("match");
 
@@ -82,10 +81,15 @@ function compare (currentCard, previousCard) {
       setTimeout(function() { // Delayes the function
           currentCard.classList.remove("open", "show", "disable");
           previousCard.classList.remove("open", "show", "disable");
-          openedCards = []; //Makes the the card array empty again.
       }, 600);
+
+      openedCards = []; //Makes the the card array empty again.
     }
+
+    /// add new move
+    addMove();
 }
+
 
 
  /*
@@ -98,6 +102,37 @@ function isOver() {
 }
 
 /*
+* Moves function
+*/
+const movesContainer = document.querySelector(".moves");
+let moves = 0;
+function addMove() {
+     moves++;
+movesContainer.innerHTML = moves;
+
+// set the rating
+rating();
+}
+
+
+/*
+* Stars rating
+*/
+
+const starsContainer = document.querySelector(".stars");
+const star = `<li><i class="fa fa-star"></i></li>`;
+starsContainer.innerHTML = star + star + star;
+function rating () {
+  if(moves < 10) {
+    starsContainer.innerHTML = star + star + star;
+  } else if(moves < 15) {
+    starsContainer.innerHTML = star + star;
+  } else {
+    starsContainer.innerHTML = star;
+  } }
+
+
+/*
 * Restart Game function
 */
  const restartButton = document.querySelector(".restart");
@@ -105,6 +140,11 @@ function isOver() {
  restartButton.addEventListener("click", function (){
  // delete all cards
  cardsContainer.innerHTML = "";
+ //reset moves
+ moves = 0;
+ movesContainer.innerHTML = moves;
+ // reset stars to 3
+ starsContainer.innerHTML = star + star + star;
 
  // call init to create new cards
  init();
