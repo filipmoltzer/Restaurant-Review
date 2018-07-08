@@ -16,7 +16,6 @@ let matchedCards = [];
 /*
 * initialize the game
 */
-
 function init() {
   for (let i = 0; i < icons.length; i++) {
       const card = document.createElement("li");
@@ -29,12 +28,30 @@ function init() {
   }
 }
 
+// Shuffle the cards
+shuffle(icons);
 
 /*
 * Click event
 */
+
+// checks if its the first time clicked
+let isFirstClick = true;
+
 function click(card) {
   card.addEventListener("click", function() {
+    /*
+    * At the first click "isFirstClick" will be true and start the timer.
+    * when this is done the "isFirstClick" will change to false,
+    * so it doesn't start once more.
+    */
+
+    if (isFirstClick) {
+      // Timer starts
+      startTimer();
+      // Changes isFirstClick to false
+      isFirstClick=false;
+    }
 
       const currentCard = this;
       const previousCard = openedCards[0];
@@ -97,6 +114,9 @@ function compare (currentCard, previousCard) {
  */
 function isOver() {
     if (matchedCards.length === icons.length) {
+      // Ends the timer
+      stopTimer();
+
         alert("GAME OVER");
     }
 }
@@ -132,6 +152,38 @@ function rating () {
   } }
 
 
+  /*
+   * Timer
+   */
+  const timerContainer = document.querySelector(".timer");
+  let liveTimer,
+      totalSeconds = 0;
+
+  // Adds the letter "s" after the seconds value.
+  timerContainer.innerHTML = totalSeconds + 's';
+
+  /*
+   * We call starTimer to start our function,
+   * This function starts when the user click on the first card.
+   */
+   function startTimer() {
+      liveTimer = setInterval(function() {
+          // Increase the totalSeconds by 1
+          totalSeconds++;
+          // Update the HTML Container with the new time
+          timerContainer.innerHTML = totalSeconds + 's';
+      }, 1000);
+  }
+
+  /*
+   * Our timer do not stop until we call stopTimer
+   */
+  function stopTimer() {
+      clearInterval(liveTimer);
+  }
+
+
+
 /*
 * Restart Game function
 */
@@ -145,18 +197,22 @@ function rating () {
  movesContainer.innerHTML = moves;
  // reset stars to 3
  starsContainer.innerHTML = star + star + star;
-
+  // call shuffle function
+ shuffle(icons);
  // call init to create new cards
  init();
  // Reset matchedCards
  matchedCards = [];
+ // resets the timer to 0 and starts again at the first click
+ stopTimer();
+ isFirstClick = true;
+ totalSeconds = 0;
+ timerContainer.innerHTML = totalSeconds + "s";
  });
 
 
 /// start the game
 init();
-
-
 
 
 
@@ -192,6 +248,7 @@ function shuffle(array) {
 
     return array;
 }
+
 
 
 /*
