@@ -40,7 +40,7 @@ let isFirstClick = true;
 function click(card) {
     card.addEventListener("click", function() {
 
-        /*
+         /*
          * At the first click "isFirstClick" will be true and start the timer.
          * when this is done the "isFirstClick" will change to false,
          * so it doesn't start once more.
@@ -112,13 +112,19 @@ function compare(currentCard, previousCard) {
 function isOver() {
     if (matchedCards.length === icons.length) {
         // Ends the timer
+        var endTime = document.getElementById('ENDTIME');
+        var lastStars = document.getElementById('starRating');
+
+        const lastTime = totalSeconds + 's';
         stopTimer();
+        endTime.innerHTML = "Time:" + " " + lastTime;
+        lastStars.innerHTML = "Stars" + starsContainer.innerHTML;
         popUp();
     };
 }
 
 /*
- * Moves function
+ * Moves functio
  */
 const movesContainer = document.querySelector(".moves");
 let moves = 0;
@@ -131,10 +137,10 @@ function addMove() {
     rating();
 }
 
+
 /*
  * Stars rating
  */
-
 const starsContainer = document.querySelector(".stars");
 const star = `<li><i class="fa fa-star"></i></li>`;
 starsContainer.innerHTML = star + star + star;
@@ -148,6 +154,7 @@ function rating() {
         starsContainer.innerHTML = star;
     }
 }
+
 
 /*
  * Timer
@@ -172,16 +179,13 @@ function startTimer() {
     }, 1000);
 }
 
-/*
- * Our timer do not stop until we call stopTimer
- */
+/// Our timer do not stop until we call stopTimer
+
 function stopTimer() {
     clearInterval(liveTimer);
 }
 
-/*
- * Winning Messsage
- */
+
 
 /*
  * Restart Game function
@@ -213,6 +217,8 @@ restartButton.addEventListener("click", function() {
 init();
 
 
+
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
@@ -229,14 +235,16 @@ function shuffle(array) {
     return array;
 }
 
+
+
+
 // Get the modal
 var modal = document.getElementById('myModal');
-
 // When the users done, the modal opens
 popUp = function() {
     modal.style.display = "block";
 }
-
+// Play again button
 function reLoad() {
     location.reload();
 }
