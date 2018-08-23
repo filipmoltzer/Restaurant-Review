@@ -21,7 +21,7 @@ let urlcache = [
   'img/10.jpg',
 ];
 
-self.addEventListener('install', function(e) {
+ self.addEventListener('install', function(e) {
     console.log('[ServiceWorker] Installed');
 
     //Delay event until the Promise is resolved
