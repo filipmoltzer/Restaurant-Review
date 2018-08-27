@@ -10,7 +10,6 @@ class App extends Component {
   }
 
   componentDidMount() { //react componnent mount=we invoke the renderMap function
-    this.renderMap()
     this.getVenues()
   }
 
@@ -35,7 +34,7 @@ class App extends Component {
     .then(response => {
       this.setState ({
         venues: response.data.response.groups[0].items
-      })
+      }, this.renderMap())
     })
     .catch(error => {
       console.log("Ooops, Error details: " + error)
@@ -50,12 +49,19 @@ class App extends Component {
           center: {lat: -34.397, lng: 150.644},
           zoom: 8
         })
-        var marker = new window.google.maps.Marker({
-          position: {lat: -34.397, lng: 150.644},
-          map: map,
-          title: 'Hello World!'
-      });
-      }
+
+        this.state.venues.map(firstvenue => {
+
+          var marker = new window.google.maps.Marker({
+            position:
+            {lat: firstvenue.venue.location.lat,
+             lng: firstvenue.venue.location.lng},
+            map: map,
+            title: firstvenue.venue.name
+        })
+      })
+
+    } // initMap end-bracket
 
   render() {
     return (
