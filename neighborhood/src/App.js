@@ -22,10 +22,11 @@ class App extends Component {
     getVenues = () => {
       const endPoint = "https://api.foursquare.com/v2/venues/explore?"
       const parameters = {
-        client_id: "5FYYDPU5J1B2T45JT4B1P5OFEGA4ZSPWARV5ZIZJKJUJLFGM",
-        client_secret: "R1KLNCE1UOR5Z5GA43Y2CGAKCS0WMZDBRJEOP0DOCTM3HK4W",
-        query: "food",
-        near: "Sydney",
+        client_id: "NYHKCEE05GRYYR3RCMJSCNBRUT5QOUSMPCFHYPPN2V00AYIM",
+        client_secret: "WRMDYPZNCEXDVSGLUQIQQ2JJAVVETSBPECA2G1R4EMYWTOYR",
+        query: "coffe",
+        near: "Malmö",
+        limit: 5,
         v: "20182507"
       }
 
@@ -45,13 +46,21 @@ class App extends Component {
 
 
   initMap = () => {
-        var map = new window.google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        })
 
+         /* Map */
+        var map = new window.google.maps.Map(document.getElementById('map'), {
+          center: {lat: 55.604981, lng: 13.003822},
+			    zoom: 8
+        })
+         /* info window */
+        var infowindow = new window.google.maps.InfoWindow()
+
+         /* Loop */
         this.state.venues.map(firstvenue => {
 
+          var contentString = `${firstvenue.venue.name}`
+
+          /* Marker */
           var marker = new window.google.maps.Marker({
             position:
             {lat: firstvenue.venue.location.lat,
@@ -59,6 +68,16 @@ class App extends Component {
             map: map,
             title: firstvenue.venue.name
         })
+
+          /* When marker click'd = open infowindow */
+          marker.addListener('click', function() {
+
+            // Changes infowindow
+            infowindow.setContent(contentString)
+
+            // Opens infowindow
+            infowindow.open(map, marker);
+        });
       })
 
     } // initMap end-bracket
@@ -67,6 +86,40 @@ class App extends Component {
     return (
       <main>
       <div id="map"></div>
+      <div id="SearchBar">
+<p>Search: <input data-bind="value: firstName" /></p>
+
+      </div>
+      <div className="search-books">
+      <div className="search-books-bar">
+        <nav className="close-search">
+          Close
+        </nav>
+
+        <div className="search-books-input-wrapper">
+          <input
+            type="text"
+            placeholder="Search by title or author"
+
+          />
+        </div>
+      </div>
+
+      <div className="search-books-results">
+        <ol className="books-grid">
+            return (
+              <li>
+
+              </li>
+            );
+
+          })
+        }
+        </ol>
+      </div>
+    </div>
+
+
       </main>
 
     )
@@ -82,4 +135,5 @@ function loadScript (url) {
   index.parentNode.insertBefore(script, index)
 
 }
+
 export default App;

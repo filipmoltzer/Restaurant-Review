@@ -36,3 +36,35 @@
         margin: 0;
         padding: 0;
       }
+
+      
+/* Search bar  ???
+#nav {
+  width: $app-width;
+  margin: 10px auto;
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  width: $app-width;
+  margin: 0 auto;
+  padding: 0;
+  li {
+    background-color: $list-bgcolor;
+    padding: 10px;
+    margin-bottom: 5px;
+    position: relative;
+    &:hover {
+      background-color: darken($list-bgcolor, 3%);
+    }
+    a {
+      position: absolute;
+      left: 200px;
+      color: $text-color;
+    }
+  }
+}
+*/
