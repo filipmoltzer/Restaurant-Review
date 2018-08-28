@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+
+
 class LoadingContainer extends Component {
     state = {
         loaded: true
@@ -39,7 +41,7 @@ export class MapContainer extends Component {
     render() {
         const locations = this.props.locations
         return (
-            <Map className="map-container col-lg-9"
+            <Map className="mapContainer col-lg-9"
                 google={this.props.google}
                 initialCenter={this.props.position}
                 center={this.props.position}

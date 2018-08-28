@@ -36,7 +36,7 @@ class App extends Component {
   }
   addImage = (query) => {
     fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&
-    api_key=e8b88834ebfed787c9bb59e190792e9a&
+    api_key=88925b9701cd7b7cdf37198cb58b300d&
     text=${query}&is_getty=1&sort=interestingness-desc&
     per_page=2&format=json&nojsoncallback=1`, {
       }).then(response => response.json()
