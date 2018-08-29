@@ -1,0 +1,41 @@
+[  {
+    "id": 0,
+    "name": "Turning Torso",
+    "position": {
+      "lat": 55.6133242,
+      "lng": 12.976362
+    }
+  },
+  {
+    "id": 1,
+    "name": "Öresundsbron",
+    "position": {
+      "lat" : 55.5706287,
+      "lng" : 12.8486371
+    }
+  },
+  {
+    "id": 2,
+    "name": "Falsterbo Beach",
+    "position": {
+      "lat" : 55.3928823,
+      "lng" : 12.8503456
+    }
+  },
+  {
+    "id": 3,
+    "name": "Copenhagen Tivoli",
+    "position": {
+      "lat" : 55.6736841,
+      "lng" : 12.5681471
+    }
+  },
+  {
+    "id": 4,
+    "name": "Malmö Lilla torg",
+    "position": {
+      "lat" : 55.6055179,
+      "lng" : 13.0002481
+    }
+  }
+]
