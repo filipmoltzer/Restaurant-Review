@@ -8,23 +8,24 @@ class LoadingContainer extends Component {
     }
 
     render() {
-
         document.onreadystatechange = () => {
             if (document.readyState === 'complete') {
                 if (!window.google) this.setState({ loaded: false })
             }
         }
-
+        // Loads google maps to the page
         if (this.state.loaded) {
             return (
                 <div className='h3 mx-auto mt-5'>Loading Google Maps</div>
             )
         }
+        // if Maps can't load:
         return (
             <div className='h3 mx-auto mt-5'>Google Maps couldnt load</div>
         )
     }
 }
+
 
 export class MapContainer extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -72,6 +73,8 @@ export class MapContainer extends Component {
         )
     }
 }
+
+
 export default GoogleApiWrapper((props) => {
     return {
         apiKey: ('AIzaSyDkr51-HI0Ko88nYe0xka9-243WPgZqBGk'),

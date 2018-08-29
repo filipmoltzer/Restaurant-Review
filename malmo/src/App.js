@@ -34,6 +34,11 @@ class App extends Component {
       filteredlocs: this.state.locations.filter((location) => match.test(location.name)) || this.state.locations
     })
   }
+
+
+  /*
+    Gets images from Flickr API
+  */
   addImage = (query) => {
     fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&
     api_key=88925b9701cd7b7cdf37198cb58b300d&
@@ -52,13 +57,15 @@ class App extends Component {
 
       })
   }
-  onLocClicked = (loc) => {
+
+
+  onLocClicked = (loc) => { // shows location
     this.filter(loc.textContent)
     this.setState({
       currentLocation: loc.textContent
     })
   }
-  onMarkerClick = (props, marker, e) => {
+  onMarkerClick = (props, marker, e) => { // Zooms in and shows the infoWindow
     this.filter(props.name)
     this.addImage(props.name)
     this.setState({
@@ -73,7 +80,7 @@ class App extends Component {
       }
     })
   }
-  onMapClicked = (props) => {
+  onMapClicked = (props) => { // Zooms out to start mode
     if (this.state.showInfoW) {
       this.setState({
         position: { lat: 55.6, lng: 13.00 },
@@ -88,13 +95,15 @@ class App extends Component {
       })
     }
   };
-  clear = () => {
+  clear = () => { // Resets
     this.setState({
       query: '',
       filteredlocs: this.state.locations,
     })
     this.onMapClicked()
   }
+
+
   render() {
     return (
       <div className="container-fluid">

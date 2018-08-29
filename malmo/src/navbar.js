@@ -5,6 +5,11 @@ class Nav extends React.Component {
     render() {
         const { locations, query, filter } = this.props
         const links = locations.map((location) => (
+
+          /* Here I used alot of building/styling with Bootstrap.
+              + Navbar & Grid layouts are buildt within the Bootstrap grid system.
+              + Background color, collapse menu are also buildt through Bootstrap.
+            */
         <button key={location.id} onClick={e => this.props.onLocClicked(e.target)} className="list-group-item list-group-item-action flex-column align-items-startmy-1">
             <div className="d-flex w-100 justify-content-between">
                 <h5>{location.name}</h5>
@@ -36,7 +41,7 @@ class Nav extends React.Component {
                             }} transitionEnterTimeout={1000}
                             transitionLeaveTimeout={500}
                             transitionAppearTimeout={800}
-                            transitionEnter={false} // Fixes console warning
+                            transitionEnter={false} // Fixes console warning error
                             >
                             {links}
                         </ReactCSSTransitionGroup>
